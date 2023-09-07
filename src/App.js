@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import SignInPage from './components/SignInPage';
+import SignUpPage from './components/SignUpPage';
+import { useAuthContext } from './context/auth_context';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  const [LoginToggle, setLoginToggle] = useState(true)
+
+  const onTap = () =>{
+    setLoginToggle(!LoginToggle)
+  }
+
+  const {getUser } = useAuthContext()
+
+  if ( getUser() === ""){
+    return (
+      <div className="main bg-orange-200 h-screen">
+        <div className="flex justify-center content-center">
+          { LoginToggle && <SignInPage onTap={onTap}/> }
+          {!LoginToggle && <SignUpPage onTap={onTap}/> }
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="main bg-orange-200 h-screen">
+        <div className="text-center">
+          Hello world
+        </div>
+      </div>
+    )
+    
+  }
+  
 }
 
 export default App;

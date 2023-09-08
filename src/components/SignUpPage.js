@@ -14,7 +14,7 @@ const SignUpPage = (props) => {
 
   const toast = useToast()
 
-  const {createAuthUser, setUser} = useAuthContext()
+  const {createAuthUser, setUser, setName} = useAuthContext()
 
   const handleSubmit = async(e) =>{
     e.preventDefault()
@@ -33,6 +33,7 @@ const SignUpPage = (props) => {
           isClosable: true,
         })
         await setUser(user.user)
+        await setName(name)
       } else {
         toast({
           title: user.error,

@@ -3,7 +3,8 @@
 // consumer => useContext hook
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth, db } from "../firebase-config";
+import { doc, setDoc } from "firebase/firestore";
 
 const { createContext, useContext, useState } = require("react");
 
@@ -12,6 +13,7 @@ const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState({})
+    const [name,setName] = useState("")
 
     const createAuthUser = async(name, email, password) => {
         try{
@@ -37,8 +39,20 @@ const AuthProvider = ({ children }) => {
         return user;
     }
 
+    const SubmitResponse = async(score) =>{
+        try{
+            const data = await setDoc(doc(db,"user",user.uid),{
+                name:user.displayName || name || user.email,
+                email:user.email,
+                score:score
+            })
+            return {data:data,error:""}
+        } catch(error) {
+            return {data:"",error:error.message}
+        }
+    }
 
-    return <AuthContext.Provider value={{createAuthUser , authVerification, setUser, getUser}}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{createAuthUser , authVerification, setUser, getUser, SubmitResponse, setName}}>{children}</AuthContext.Provider>
 }
 
 // Custom Hook

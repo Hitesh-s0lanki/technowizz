@@ -24,7 +24,7 @@ const SignInPage = (props) => {
     if ( email !== "" && password !== ""){
       const user = await authVerification( email, password)
       if(user.user !== ""){
-        await setUser(user)
+        await setUser(user.user)
         toast({
           title: 'Login Account',
           description: "You have Successfully Logged In",

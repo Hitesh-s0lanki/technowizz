@@ -73,7 +73,7 @@ const Question = (props) => {
   }
 
   return (
-    <div className="rounded-lg drop-shadow-2xl mx-20 bg-white p-3">
+    <div className="rounded-lg drop-shadow-2xl mx-20 bg-white p-3 w-2/3">
       <Modal onClose={onClose} size="md" isOpen={isOpen}>
         <ModalOverlay />
         <ModalContent>
@@ -94,10 +94,10 @@ const Question = (props) => {
         </Heading>
         <div className="FirstPart flex justify-between items-center w-full">
           <p className="break-words text-2xl w-2/3">{arr[index].question[1]}</p>
-          <Image src={arr[index].image[0]} maxWidth={220}></Image>
+          <Image src={arr[index].image[0]} maxWidth={250}></Image>
         </div>
         <div className="FirstPart flex justify-between items-center w-full">
-          <Image src={arr[index].image[1]} maxWidth={220}></Image>
+          <Image src={arr[index].image[1]} maxWidth={250}></Image>
           <p className="break-words text-2xl w-2/3 text-center">
             {arr[index].question[2]}
           </p>

@@ -51,9 +51,9 @@ const SignUpPage = (props) => {
   }
 
   return (
-    <div className="center my-24 w-1/3" >
-        <div className='rounded-lg drop-shadow-2xl bg-slate-50 p-10'>
-          <div className="flex flex-col justify-center align-middle my-3">
+    <div className="h-screen flex items-center justify-center">
+        <div className='rounded-lg drop-shadow-2xl bg-slate-50 p-10 w-max'>
+          <div className="flex flex-col items-center justify-center align-middle my-3">
             <img src={Logo} alt='logo' height={170} width={170} className='rounded-full mr-3 p-2' />
             <h1 className='text-start text-2xl font-bold mx-3'>Register...</h1>
           </div>

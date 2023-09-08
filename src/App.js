@@ -25,7 +25,7 @@ function App() {
     );
   } else {
     return (
-      <div className="main bg-orange-200 h-screen">
+      <div className="bg-orange-200 h-screen flex items-center justify-center">
         <div className="text-center">
           Hello world
         </div>

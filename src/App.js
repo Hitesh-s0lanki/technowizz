@@ -3,6 +3,7 @@ import './App.css';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
 import { useAuthContext } from './context/auth_context';
+import Home from './components/Home';
 
 function App() {
 
@@ -26,9 +27,7 @@ function App() {
   } else {
     return (
       <div className="bg-orange-200 h-screen flex items-center justify-center">
-        <div className="text-center">
-          Hello world
-        </div>
+        <Home />
       </div>
     )
     

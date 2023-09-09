@@ -94,14 +94,14 @@ const Question = (props) => {
         </Heading>
         <div className="FirstPart flex justify-between items-center w-full">
           <p className="break-words text-2xl w-2/3">{arr[index].question[1]}</p>
-          <Image src={arr[index].image[0]} maxWidth={250}></Image>
+          <Image src={arr[index].image[0]} maxHeight={200} maxWidth={250}></Image>
         </div>
-        <div className="FirstPart flex justify-between items-center w-full">
-          <Image src={arr[index].image[1]} maxWidth={250}></Image>
+        {arr[index].image.length !== 1 && <div className="FirstPart flex justify-between items-center w-full">
+          <Image src={arr[index].image[1]} maxHeight={200} maxWidth={250}></Image>
           <p className="break-words text-2xl w-2/3 text-center">
             {arr[index].question[2]}
           </p>
-        </div>
+        </div>}
       </div>
       <div className="main">
         <div className="columns-2 mx-10">
@@ -120,7 +120,7 @@ const Question = (props) => {
           })}
         </div>
       </div>
-      <div className="changeQuestion flex justify-between my-2">
+      <div className="changeQuestion flex justify-between my-2 mx-10">
         <Button
           colorScheme="teal"
           size="lg"

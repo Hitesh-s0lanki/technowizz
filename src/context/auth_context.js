@@ -39,12 +39,13 @@ const AuthProvider = ({ children }) => {
         return user;
     }
 
-    const SubmitResponse = async(score) =>{
+    const SubmitResponse = async(score, arr) =>{
         try{
             const data = await setDoc(doc(db,"user",user.uid),{
                 name:user.displayName || name || user.email,
                 email:user.email,
-                score:score
+                score:score,
+                ansArray:arr
             })
             return {data:data,error:""}
         } catch(error) {

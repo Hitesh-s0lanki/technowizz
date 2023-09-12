@@ -3,7 +3,7 @@ import River from '../assets/river.jpg'
 import Waterfall from '../assets/waterfall.png'
 import WaterJug from '../assets/waterjug.jpg'
 
-export const arr = [
+const array = [
     {
         question: ["9 Balls Weight Puzzle"," You have 9 balls, equally big, equally heavy - except for one, which is a little heavier.","Minimum number of trial to identify the heavier ball if you could use a pair of balance scales"],
         image:[Ball,'https://www.mathsisfun.com/puzzles/images/bal-scales.svg'],
@@ -95,3 +95,19 @@ export const arr = [
         answer: "Bill has a black hat"
     }
 ]
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) { 
+   
+        // Generate random number 
+        var j = Math.floor(Math.random() * (i + 1));
+                   
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+       
+    return array;
+}
+
+export const arr = shuffleArray(array)

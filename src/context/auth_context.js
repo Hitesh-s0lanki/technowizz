@@ -4,7 +4,7 @@
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase-config";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
 
 const { createContext, useContext, useState } = require("react");
 
@@ -39,13 +39,14 @@ const AuthProvider = ({ children }) => {
         return user;
     }
 
-    const SubmitResponse = async(score, arr) =>{
+    const SubmitResponse = async(score, arr, time) =>{
         try{
             const data = await setDoc(doc(db,"user",user.uid),{
                 name:user.displayName || name || user.email,
                 email:user.email,
                 score:score,
-                ansArray:arr
+                ansArray:arr,
+                time:time
             })
             return {data:data,error:""}
         } catch(error) {
@@ -53,7 +54,26 @@ const AuthProvider = ({ children }) => {
         }
     }
 
-    return <AuthContext.Provider value={{createAuthUser , authVerification, setUser, getUser, SubmitResponse, setName}}>{children}</AuthContext.Provider>
+
+    const getAllScore = async () => {
+        const query1 = query(collection(db, "user"), orderBy('score'));
+        let ans = [];
+    
+        try {
+            const snapshot = await getDocs(query1);
+    
+            snapshot.forEach((doc) => {
+                ans.push(doc.data());
+            });
+        } catch (error) {
+            // Handle any potential errors here.
+            console.error("Error fetching scores:", error);
+        }
+    
+        return ans;
+    };
+
+    return <AuthContext.Provider value={{createAuthUser , authVerification, setUser, getUser, SubmitResponse, setName, getAllScore}}>{children}</AuthContext.Provider>
 }
 
 // Custom Hook

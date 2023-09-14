@@ -77,7 +77,7 @@ const Question = () => {
   const SubmitRes = async() =>{
     setIndex(index + 1)
     onClose()
-    await SubmitResponse(score, ansArray)
+    await SubmitResponse(score, ansArray, timer)
   }
 
   //Timer Part

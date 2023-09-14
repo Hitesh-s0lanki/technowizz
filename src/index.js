@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/auth_context';
 import { ChakraProvider } from '@chakra-ui/react';
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import Score from './Score';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -13,7 +15,12 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <ChakraProvider>
-        <App />
+        <HashRouter>
+          <Routes>
+            <Route exact path='/' element={<App />} />
+            <Route exact path='/score' element={<Score />} />
+          </Routes>
+        </HashRouter>
       </ChakraProvider>
     </AuthProvider>
   </React.StrictMode>

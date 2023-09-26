@@ -14,7 +14,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
-import { arr } from "../question/app";
+import { arr } from "../question/next";
 import SubmitPage from "./SubmitPage";
 import { useAuthContext } from "../context/auth_context";
 

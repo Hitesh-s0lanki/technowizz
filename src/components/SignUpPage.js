@@ -6,7 +6,7 @@ import { Button, useToast } from '@chakra-ui/react'
 
 const SignUpPage = (props) => {
 
-  const [authDetails,setAuthDetails] = useState({name:"",email:"",password:""})
+  const [authDetails,setAuthDetails] = useState({name1:"",name2:"",email:"",password:""})
 
   const onChange = (e) =>{
     setAuthDetails({...authDetails,[e.target.name] :e.target.value})
@@ -14,16 +14,17 @@ const SignUpPage = (props) => {
 
   const toast = useToast()
 
-  const {createAuthUser, setUser, setName} = useAuthContext()
+  const {createAuthUser, setUser} = useAuthContext()
 
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    const name = authDetails.name.trim()
+    const name1 = authDetails.name1.trim()
+    const name2 = authDetails.name2.trim()
     const email = authDetails.email.trim()
     const password = authDetails.password.trim()
 
-    if (name !== "" && email !== "" && password !== ""){
-      const user = await createAuthUser(name, email, password)
+    if (name1 !== "" && name2 !== "" && email !== "" && password !== ""){
+      const user = await createAuthUser(name1, name2, email, password)
       if(user.user !== ""){
         toast({
           title: 'Account created.',
@@ -33,7 +34,6 @@ const SignUpPage = (props) => {
           isClosable: true,
         })
         await setUser(user.user)
-        await setName(name)
       } else {
         toast({
           title: user.error,
@@ -59,11 +59,12 @@ const SignUpPage = (props) => {
             <h1 className='text-start text-2xl font-bold mx-3'>Register...</h1>
           </div>
           <form method="post">
-            <TextField name="Name" nameValue="name" val={authDetails.name} onChange={onChange} />
+            <TextField name="Name of Participant 1" nameValue="name1" val={authDetails.name1} onChange={onChange} />
+            <TextField name="Name of Participant 2" nameValue="name2" val={authDetails.name2} onChange={onChange} />
             <TextField name="Email address" nameValue="email" val={authDetails.email} onChange={onChange} />
             <TextField name="Password" nameValue="password" val={authDetails.password} onChange={onChange} />
             <div className="container center my-4 flex justify-center">
-              <Button className="rounded bg-orange-300 p-2" onClick={handleSubmit}>Register</Button>
+              <Button type='submit' className="rounded bg-orange-300 p-2" onClick={handleSubmit}>Register</Button>
             </div>
           </form>
           <div className="redirectText flex justify-center">

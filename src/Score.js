@@ -36,7 +36,7 @@ const Score = () => {
             <TableCaption>Score Board</TableCaption>
             <Thead>
               <Tr>
-                <Th>Name</Th>
+                <Th>Name of Participants</Th>
                 <Th isNumeric>Score</Th>
                 <Th>Time</Th>
               </Tr>
@@ -46,7 +46,7 @@ const Score = () => {
                 console.log(element);
                 return (
                   <Tr>
-                    <Td>{element.name}</Td>
+                    <Td>{element.name1 + " + " + element.name2}</Td>
                     <Td isNumeric>{element.score}</Td>
                     <Td>{element.time}</Td>
                   </Tr>

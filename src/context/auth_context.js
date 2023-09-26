@@ -4,7 +4,9 @@
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase-config";
-import { collection, doc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, setDoc } from "firebase/firestore";
+
+import arr from "../assets/data.json"
 
 const { createContext, useContext, useState } = require("react");
 
@@ -13,12 +15,46 @@ const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState({})
-    const [name,setName] = useState("")
 
-    const createAuthUser = async(name, email, password) => {
+    const createUserNow = async() =>{
+        for(let value of arr){
+            try{
+                const userCredential = await createUserWithEmailAndPassword(auth,value.email,value.password)
+
+                const userInfo = {
+                    name1:value.member1,
+                    name2:value.member2,
+                    email:value.email,
+                    password:value.password
+                }
+
+                await setDoc(doc(db, 'logical', userCredential.user.uid),userInfo)
+            }catch(error){
+                console.log(error)
+            }
+        }
+    }
+
+    const createAuthUser = async(name1,name2, email, password) => {
         try{
             const userCredential = await createUserWithEmailAndPassword(auth,email,password)
-            return {user:userCredential.user,error:""};
+
+            const userInfo = {
+                uid:userCredential.user.uid,
+                name1,
+                name2,
+                email,
+                password,
+                score:0,
+                ansArray:[],
+                time:"",
+                status:true
+            }
+
+            await setDoc(doc(db, 'logical', userCredential.user.uid),userInfo)
+
+            return {user:userInfo ,error:""};
+
         } catch(error){
             return {user:"",error:error.message}
         }
@@ -27,7 +63,16 @@ const AuthProvider = ({ children }) => {
     const authVerification = async(email, password)=>{
         try{
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            return {user:userCredential.user,error:""};
+            const uid = userCredential.user.uid
+            const userInfo = await getDoc(doc(db, 'logical', uid))
+            if (userInfo.exists()) {
+                if(userInfo.data().status){
+                    return {user:userInfo.data(),error:""}
+                }
+                return {user:"",error:"User submitted his response"} 
+              } else {
+                return {user:"",error:"User Not exist"}
+              }
         } catch(error) {
             return {user:"",error:error.message}
         }
@@ -41,13 +86,20 @@ const AuthProvider = ({ children }) => {
 
     const SubmitResponse = async(score, arr, time) =>{
         try{
-            const data = await setDoc(doc(db,"user",user.uid),{
-                name:user.displayName || name || user.email,
+
+            const userInfo = {
+                uid:user.uid,
+                name1:user.name1,
+                name2:user.name2,
                 email:user.email,
+                password:user.password,
                 score:score,
                 ansArray:arr,
-                time:time
-            })
+                time:time,
+                status:false
+            }
+
+            const data = await setDoc(doc(db,"logical",user.uid),userInfo)
             return {data:data,error:""}
         } catch(error) {
             return {data:"",error:error.message}
@@ -56,7 +108,7 @@ const AuthProvider = ({ children }) => {
 
 
     const getAllScore = async () => {
-        const query1 = query(collection(db, "user"), orderBy('score'));
+        const query1 = query(collection(db, "logical"), orderBy('score',"desc"),limit(20));
         let ans = [];
     
         try {
@@ -73,7 +125,7 @@ const AuthProvider = ({ children }) => {
         return ans;
     };
 
-    return <AuthContext.Provider value={{createAuthUser , authVerification, setUser, getUser, SubmitResponse, setName, getAllScore}}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{createAuthUser , authVerification, setUser, getUser, SubmitResponse, getAllScore, createUserNow}}>{children}</AuthContext.Provider>
 }
 
 // Custom Hook

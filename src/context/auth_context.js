@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
                     password:value.password
                 }
 
-                await setDoc(doc(db, 'logical', userCredential.user.uid),userInfo)
+                await setDoc(doc(db, 'round2', userCredential.user.uid),userInfo)
             }catch(error){
                 console.log(error)
             }
@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
                 status:true
             }
 
-            await setDoc(doc(db, 'logical', userCredential.user.uid),userInfo)
+            await setDoc(doc(db, 'round2', userCredential.user.uid),userInfo)
 
             return {user:userInfo ,error:""};
 
@@ -64,7 +64,7 @@ const AuthProvider = ({ children }) => {
         try{
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
             const uid = userCredential.user.uid
-            const userInfo = await getDoc(doc(db, 'logical', uid))
+            const userInfo = await getDoc(doc(db, 'round2', uid))
             if (userInfo.exists()) {
                 if(userInfo.data().status){
                     return {user:userInfo.data(),error:""}
@@ -99,7 +99,7 @@ const AuthProvider = ({ children }) => {
                 status:false
             }
 
-            const data = await setDoc(doc(db,"logical",user.uid),userInfo)
+            const data = await setDoc(doc(db,"round2",user.uid),userInfo)
             return {data:data,error:""}
         } catch(error) {
             return {data:"",error:error.message}
@@ -108,7 +108,7 @@ const AuthProvider = ({ children }) => {
 
 
     const getAllScore = async () => {
-        const query1 = query(collection(db, "logical"), orderBy('score',"desc"),limit(20));
+        const query1 = query(collection(db, "round2"), orderBy('score',"desc"),limit(20));
         let ans = [];
     
         try {

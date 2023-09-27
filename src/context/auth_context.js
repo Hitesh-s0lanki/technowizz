@@ -108,7 +108,7 @@ const AuthProvider = ({ children }) => {
 
 
     const getAllScore = async () => {
-        const query1 = query(collection(db, "round2"), orderBy('score',"desc"),limit(20));
+        const query1 = query(collection(db, "logical"), orderBy('score',"desc"));
         let ans = [];
     
         try {

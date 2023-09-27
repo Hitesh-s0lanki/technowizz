@@ -14,7 +14,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
-import { arr } from "../question/next";
+import { arr } from "../question/app";
 import SubmitPage from "./SubmitPage";
 import { useAuthContext } from "../context/auth_context";
 
@@ -139,7 +139,7 @@ const Question = () => {
  
         // This is where you need to adjust if
         // you entend to add more time
-        deadline.setSeconds(deadline.getSeconds() + 2700);
+        deadline.setSeconds(deadline.getSeconds() + 1200);
         return deadline;
     }
  

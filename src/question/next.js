@@ -5,18 +5,8 @@ const array = [
         options:[ "2.5", "3", "4.5", "2"],
         answer: "2.5"
     },
-    {
-        question: ["Camel and Banana Puzzle","A person has 3000 bananas and a camel. The person wants to transport the maximum number of bananas to a destination which is 1000 KMs away, using only the camel as a mode of transportation. The camel cannot carry more than 1000 bananas at a time and eats a banana every km it travels."," What is the maximum number of bananas that can be transferred to the destination using only camel (no other mode of transportation is allowed).If the camel doesn't eat a banana while returning"],
-        image:['https://static.vecteezy.com/system/resources/previews/005/162/511/non_2x/cartoon-camel-isolated-on-white-background-free-vector.jpg',"https://prepinsta.com/wp-content/uploads/2020/07/Camel-Puzzle-1.webp"],
-        options:[ "0", "533", "833", "333"],
-        answer: "833"
-    },
-    {
-        question: ["Least number you need to get two pairs","A drawer has ten blue, ten white, and ten red socks. Without looking at them you pull some socks out. ","What is the least number of socks you need to pull to ensure you get TWO pairs of matching socks?"],
-        image:['https://infinitesimallysmallcom.files.wordpress.com/2021/05/socks.jpg?w=1024',"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQC0XvudSkVjBq0syYseWArL3nKq8AG6QlcYA&usqp=CAU"],
-        options:[ "10", "11", "9", "8"],
-        answer: "10"
-    },
+    
+    
     {
         question: ["Birthday Puzzle","On a new year day, two old friends (A and B) meet at a party. As they met after a long time person B wanted person A to guess his birthday. As both friends are not in touch for a long time person A was unable to guess his birthday. So person B decided to give some hints. Below are the hints:","The day before yesterday I was 25 and next year I will be 28, then person B asked person A to find his birthday.The above condition can be true for only one day in the year"],
         image:['https://www.homemade-gifts-made-easy.com/image-files/birthday-wishes-for-son-mood-image-800x533.jpg',"https://assets.ppassets.com/p-2bbeHXT4Kcjp9yCy1qS49E/flyer/media_asset/jpeg_small"],

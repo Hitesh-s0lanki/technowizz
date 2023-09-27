@@ -20,9 +20,10 @@ import { useAuthContext } from "../context/auth_context";
 
 const Question = () => {
 
+  console.log(arr.length)
   const [index, setIndex] = useState(0);
   const [ans, setAns] = useState("");
-  const [ansArray, setArray] = useState(["","","","","","","","","","","","","","",""]);
+  const [ansArray, setArray] = useState(["","","","","","",""]);
 
   const [score, setScore] = useState(0)
 
@@ -64,12 +65,18 @@ const Question = () => {
   const handleSubmit = () => {
     console.log(ansArray)
     let count = 0
-    ansArray.map((element,index)=>{
-      if(arr[index].answer === element){
+
+    for(let i = 0;i < 7 ;i++){
+      if(arr[i].answer === ansArray[i]){
         count ++
       }
-      return element
-    })
+    }
+    // ansArray.map((element,i)=>{
+    //   if(arr[i].answer === element){
+    //     count ++
+    //   }
+    //   return element
+    // })
     setScore(count)
     onOpen();
   };

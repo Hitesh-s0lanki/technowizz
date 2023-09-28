@@ -16,25 +16,6 @@ const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState({})
 
-    const createUserNow = async() =>{
-        for(let value of arr){
-            try{
-                const userCredential = await createUserWithEmailAndPassword(auth,value.email,value.password)
-
-                const userInfo = {
-                    name1:value.member1,
-                    name2:value.member2,
-                    email:value.email,
-                    password:value.password
-                }
-
-                await setDoc(doc(db, 'round2', userCredential.user.uid),userInfo)
-            }catch(error){
-                console.log(error)
-            }
-        }
-    }
-
     const createAuthUser = async(name1,name2, email, password) => {
         try{
             const userCredential = await createUserWithEmailAndPassword(auth,email,password)
@@ -51,7 +32,7 @@ const AuthProvider = ({ children }) => {
                 status:true
             }
 
-            await setDoc(doc(db, 'round2', userCredential.user.uid),userInfo)
+            await setDoc(doc(db, 'newRound', userCredential.user.uid),userInfo)
 
             return {user:userInfo ,error:""};
 
@@ -64,14 +45,26 @@ const AuthProvider = ({ children }) => {
         try{
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
             const uid = userCredential.user.uid
-            const userInfo = await getDoc(doc(db, 'round2', uid))
+            const userInfo = await getDoc(doc(db, 'newRound', uid))
             if (userInfo.exists()) {
-                if(userInfo.data().status){
-                    return {user:userInfo.data(),error:""}
-                }
-                return {user:"",error:"User submitted his response"} 
+                return {user:userInfo.data(),error:""}
               } else {
-                return {user:"",error:"User Not exist"}
+
+                const userInfo = {
+                    uid:userCredential.user.uid,
+                    name1:"Participant - 1",
+                    name2:"Participant - 2",
+                    email,
+                    password,
+                    score:0,
+                    ansArray:[],
+                    time:"",
+                    status:true
+                }
+    
+                await setDoc(doc(db, 'newRound', userCredential.user.uid),userInfo)
+    
+                return {user:userInfo ,error:""};
               }
         } catch(error) {
             return {user:"",error:error.message}
@@ -99,7 +92,7 @@ const AuthProvider = ({ children }) => {
                 status:false
             }
 
-            const data = await setDoc(doc(db,"round2",user.uid),userInfo)
+            const data = await setDoc(doc(db,"newRound",user.uid),userInfo)
             return {data:data,error:""}
         } catch(error) {
             return {data:"",error:error.message}
@@ -108,7 +101,7 @@ const AuthProvider = ({ children }) => {
 
 
     const getAllScore = async () => {
-        const query1 = query(collection(db, "logical"), orderBy('score',"desc"));
+        const query1 = query(collection(db, "newRound"), orderBy('score',"desc"));
         let ans = [];
     
         try {

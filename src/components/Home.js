@@ -7,6 +7,7 @@ import { useAuthContext } from "../context/auth_context";
 
 
 const rules = [
+  "To See the Score put /#/score in Url",
   "The Time remaining is shown in the Left Top Corner of the white Screen",
   "The system automatically shuts down when the time limit is over, Submit before the time is up or else your response will not be Recorded",
   "Each Question contain certain Points",
